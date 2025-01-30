@@ -10,7 +10,6 @@ addgvar = zedB.set_key
 delgvar = zedB.del_key 
 
 #for something to store it 
-Zedb = zedb
 
 InlinePlugin = {}
 InlinePaths = []
