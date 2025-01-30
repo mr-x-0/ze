@@ -36,7 +36,7 @@ alive_txt = """
   ۞ أصدار التليليثون - {}
 """
 
-PING_PIC = zedB.get_key("PING_PIC") or "https://files.catbox.moe/bk64x4.jpg"
+PING_PIC = zedB.get_key("PING_PIC") or "https://telegra.ph/file/41a777f089288f7ad2571.jpg"
 ZE_TXT = "ابتسم فهناك شتاء قادم وصباحات ٌممطرةٌ . ."
 
 
