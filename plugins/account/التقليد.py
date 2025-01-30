@@ -12,7 +12,7 @@
 from telethon.utils import get_display_name
 from telethon.tl import types
 from telethon import events
-from .. import inline_mention, ZedB, ze_cmd, zeubot, LOGS
+from .. import inline_mention, zedB, ze_cmd, zeubot, LOGS
 
 
 @ze_cmd(pattern="تقليد( (.*)|$)")
@@ -85,7 +85,7 @@ async def ec_process(e):
             LOGS.exception(er)
 
 def get_stuff():
-    return ZedB.get_key("ECHO") or {}
+    return zedB.get_key("ECHO") or {}
 
 
 def add_echo(chat, user):
@@ -96,7 +96,7 @@ def add_echo(chat, user):
         x.update({int(chat): k})
     else:
         x.update({int(chat): [int(user)]})
-    return ZedB.set_key("ECHO", x)
+    return zedB.set_key("ECHO", x)
 
 
 def rem_echo(chat, user):
@@ -105,7 +105,7 @@ def rem_echo(chat, user):
         if user in k:
             k.remove(int(user))
         x.update({int(chat): k})
-    return ZedB.set_key("ECHO", x)
+    return zedB.set_key("ECHO", x)
 
 
 def check_echo(chat, user):

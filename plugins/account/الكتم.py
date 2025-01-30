@@ -9,7 +9,7 @@
 from telethon import events
 from telethon.utils import get_display_name
 
-from .. import tgbot, ZedB, zeubot, ze_cmd
+from .. import tgbot, zedB, zeubot, ze_cmd
 
 
 @zeubot.on(events.NewMessage(incoming=True))
@@ -70,7 +70,7 @@ async def end_mute(event):
 
 
 def get_muted():
-    return ZedB.get_key("MUTE") or {}
+    return zedB.get_key("MUTE") or {}
 
 
 def mute(chat, id):
@@ -80,14 +80,14 @@ def mute(chat, id):
             ok[chat].append(id)
     else:
         ok.update({chat: [id]})
-    return ZedB.set_key("MUTE", ok)
+    return zedB.set_key("MUTE", ok)
 
 
 def unmute(chat, id):
     ok = get_muted()
     if ok.get(chat) and id in ok[chat]:
         ok[chat].remove(id)
-    return ZedB.set_key("MUTE", ok)
+    return zedB.set_key("MUTE", ok)
 
 
 def is_muted(chat, id):
