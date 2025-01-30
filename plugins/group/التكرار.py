@@ -17,7 +17,7 @@
 
 import asyncio
 
-from .. import HNDLR, eod, ze_cmd, ZedB
+from .. import HNDLR, eod, ze_cmd, zedB
 
 @ze_cmd(pattern="فصخ ([\s\S]*)")
 async def typewriter(typew):
@@ -69,21 +69,21 @@ async def spam_with_delay(e):
     except BaseException:
         return await e.edit("**⌔∮ الاستخدام :** `{HNDLR}سبام_مؤقت` <الوقت بين الارسال> <عدد الارسال> <الرسالة>\n\n❃ مثال: `.سبام_مؤقت 1.5 5 مرحبا`")
     
-    ZedB.set_key(f"spam_{e.chat_id}", True)
+    zedB.set_key(f"spam_{e.chat_id}", True)
     await e.try_delete()
     
     for i in range(count):
-        if not ZedB.get_key(f"spam_{e.chat_id}"):
+        if not zedB.get_key(f"spam_{e.chat_id}"):
             return
         await e.respond(msg)
         await asyncio.sleep(delay)
-    ZedB.del_key(f"spam_{e.chat_id}")
+    zedB.del_key(f"spam_{e.chat_id}")
 
 
 @ze_cmd(pattern="ايقاف (مكرر|مؤقت)")
 async def stop_spam(e):
-    if ZedB.get_key(f"spam_{e.chat_id}"):
-        ZedB.del_key(f"spam_{e.chat_id}")
+    if zedB.get_key(f"spam_{e.chat_id}"):
+        zedB.del_key(f"spam_{e.chat_id}")
         await e.respond("**⌔∮ تم إيقاف التكرار الوقتي بنجاح!**")
     else:
         await e.respond("**⌔∮أمر المكرر ليس قيد التنفيذ حاليًا.**")

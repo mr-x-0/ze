@@ -11,7 +11,7 @@
 
 from telethon import events
 
-from .. import ZedB, zeubot, ze_cmd
+from .. import zedB, zeubot, ze_cmd
 
 
 
@@ -61,7 +61,7 @@ async def blacklist(e):
 
 
 def get_stuff():
-    return ZedB.get_key("BLACKLIST_DB") or {}
+    return zedB.get_key("BLACKLIST_DB") or {}
 
 
 def add_blacklist(chat, word):
@@ -71,14 +71,14 @@ def add_blacklist(chat, word):
             ok[chat].append(z)
     else:
         ok.update({chat: [word]})
-    return ZedB.set_key("BLACKLIST_DB", ok)
+    return zedB.set_key("BLACKLIST_DB", ok)
 
 
 def rem_blacklist(chat, word):
     ok = get_stuff()
     if ok.get(chat) and word in ok[chat]:
         ok[chat].remove(word)
-        return ZedB.set_key("BLACKLIST_DB", ok)
+        return zedB.set_key("BLACKLIST_DB", ok)
 
 
 def list_blacklist(chat):
@@ -95,5 +95,5 @@ def get_blacklist(chat):
         return ok[chat]
 
 
-if ZedB.get_key("BLACKLIST_DB"):
+if zedB.get_key("BLACKLIST_DB"):
     zeubot.add_handler(blacklist, events.NewMessage(incoming=True))
