@@ -1,7 +1,7 @@
 from .core.getdb import pyDatabase
 
 #to import database 
-ZedB = zedB = pyDatabase()
+zedB = zedB = pyDatabase()
 
 
 #for old 
