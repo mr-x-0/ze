@@ -5,7 +5,7 @@ from PIL import Image
 from telethon.tl import types
 from telethon.utils import get_display_name, get_peer_id
 
-from database import ZedB
+from database import zedB
 from resources import DEVLIST
 
 from . import async_search
@@ -131,7 +131,7 @@ async def create_quotly(event, url="https://bot.lyo.su/quote/generate",
     if not isinstance(event, list):
         event = [event]
 
-    if ZedB.get_key("OQAPI"):
+    if zedB.get_key("OQAPI"):
         url = _API
     if not bg:
         bg = "#1b1429"
