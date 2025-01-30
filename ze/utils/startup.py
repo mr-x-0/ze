@@ -26,8 +26,8 @@ from ze.helper import inline_mention#, check_update
 from ze import LOGS
 
 async def inline_on():
-    from .. import tgbot, ZedB, zeubot
-    if ZedB.get_key("INLINE_SET"):
+    from .. import tgbot, zedB, zeubot
+    if zedB.get_key("INLINE_SET"):
         return
     bot = "BotFather"
     await zeubot.send_message(bot, "/setinline")
@@ -36,24 +36,24 @@ async def inline_on():
     await asyncio.sleep(1)
     await zeubot.send_message(bot, "Search")
     await zeubot.send_read_acknowledge(bot)
-    ZedB.set_key("INLINE_SET", True)
+    zedB.set_key("INLINE_SET", True)
 
 
 async def notify():
-    from .. import tgbot, ZedB, zeubot
-    chat_id = ZedB.get_key("LOG_CHAT")
+    from .. import tgbot, zedB, zeubot
+    chat_id = zedB.get_key("LOG_CHAT")
     spam_sent, BTTS = None, None
     
-    if not ZedB.get_key("FIRST_DEPLOY"):
+    if not zedB.get_key("FIRST_DEPLOY"):
         MSG = f"🎇 **مرحبًا بك في سورس زد إي أكتمل التنصيب بنجاح** \n\n✨ **استعد لاستكشاف الميزات الجديدة!**  \n💭 إليك بعض الخيارات التي ستساعدك في التعرف على سورس زد إي واستخدامه بفعالية:  \n   - تعلم كيفية استخدام الأوامر الأساسية.  \n   - استكشاف الوظائف المختلفة المتاحة.  \n   - الانضمام إلى مجموعة الدعم للحصول على المساعدة والتوجيه.  \n\n📩 نحن هنا لدعمك، فلا تتردد في طرح أي سؤال أو استفسار!"
         PHOTO = "resources/Ze.jpg"
         BTTS = Button.inline("• أضغط هنا للبدأ •", "initft_2")
-        ZedB.set_key("FIRST_DEPLOY", True)
+        zedB.set_key("FIRST_DEPLOY", True)
     else:
         MSG = f"🌟 تنصيب سورس زد إي أكتمل بنجاح! ☑️\n\n👤 **حساب المالك:** {inline_mention(Zeubot.me)}\n🤖 **البوت المساعد:** @{tgbot.me.username}\n\n📩 نرحب بك في مجموعتنا! إذا كان لديك أي استفسارات فلا تتردد في السؤال!\n💬 **مجموعة المساعدة:** @ZESUPORT"
         BTTS, PHOTO = None, None
 
-        if prev_spam := ZedB.get_key("LAST_UPDATE_LOG_SPAM"):
+        if prev_spam := zedB.get_key("LAST_UPDATE_LOG_SPAM"):
             try:
                 await tgbot.delete_messages(chat_id, int(prev_spam))
             except Exception:
@@ -67,7 +67,7 @@ async def notify():
         except Exception as ef:
             LOGS.exception(ef)
     if spam_sent:
-        ZedB.set_key("LAST_UPDATE_LOG_SPAM", spam_sent.id)
+        zedB.set_key("LAST_UPDATE_LOG_SPAM", spam_sent.id)
 
 
 async def group_ub():
