@@ -20,7 +20,7 @@ from telethon.tl.types import (MessageEntityMention, MessageEntityMentionName,
                                User)
 from telethon.utils import get_display_name
 
-from .. import LOGS, tgbot, ZedB, zedB, zeubot, ze_cmd
+from .. import LOGS, tgbot, zedB, zedB, zeubot, ze_cmd
 from database.core.settings import KeySettings
 
 
@@ -85,15 +85,15 @@ async def permitpmhandler(event):
 @zeubot.on(
     events.NewMessage(
         incoming=True,
-        func=lambda e: (e.mentioned) and ZedB.get_key("TAG_CHAT"),
+        func=lambda e: (e.mentioned) and zedB.get_key("TAG_CHAT"),
     ),
 )
 async def all_messages_catcher(e):
     x = await e.get_sender()
     if isinstance(x, User) and (x.bot or x.verified):
         return
-    LOG_CHAT = ZedB.get_config("LOG_CHAT")
-    NEEDTOLOG = ZedB.get_key("TAG_CHAT")
+    LOG_CHAT = zedB.get_config("LOG_CHAT")
+    NEEDTOLOG = zedB.get_key("TAG_CHAT")
     buttons = await parse_buttons(e)
     try:
         sent = await tgbot.send_message(NEEDTOLOG, e.message, buttons=buttons)
@@ -135,7 +135,7 @@ async def all_messages_catcher(e):
             CACHE_SPAM[NEEDTOLOG]
         except KeyError:
             await tgbot.send_message(
-                ZedB.get_key("LOG_CHAT"), "**⌔∮ ايدي مجموعة التخزين غير صحيح يرجى تعديله**"
+                zedB.get_key("LOG_CHAT"), "**⌔∮ ايدي مجموعة التخزين غير صحيح يرجى تعديله**"
             )
             CACHE_SPAM.update({NEEDTOLOG: True})
     except ChatWriteForbiddenError:
@@ -153,7 +153,7 @@ async def all_messages_catcher(e):
         LOGS.exception(er)
 
 
-if ZedB.get_key("TAG_CHAT"):
+if zedB.get_key("TAG_CHAT"):
 
     @zeubot.on(events.MessageEdited(func=lambda x: not x.out))
     async def upd_edits(event):
@@ -161,7 +161,7 @@ if ZedB.get_key("TAG_CHAT"):
         if isinstance(x, User) and (x.bot or x.verified):
             return
         if event.chat_id not in TAG_EDITS:
-            if event.sender_id == ZedB.get_key("TAG_CHAT"):
+            if event.sender_id == zedB.get_key("TAG_CHAT"):
                 return
             if event.is_private:
                 return
@@ -179,7 +179,7 @@ if ZedB.get_key("TAG_CHAT"):
                     text = f"**#معدلة & #تاك**\n\n{event.text}"
                     try:
                         sent = await tgbot.send_message(
-                            ZedB.get_key("TAG_CHAT"),
+                            zedB.get_key("TAG_CHAT"),
                             text,
                             buttons=await parse_buttons(event),
                         )
@@ -205,7 +205,7 @@ if ZedB.get_key("TAG_CHAT"):
         if d_["count"] > 10:
             return
         try:
-            MSG = await tgbot.get_messages(ZedB.get_key("TAG_CHAT"), ids=d_["id"])
+            MSG = await tgbot.get_messages(zedB.get_key("TAG_CHAT"), ids=d_["id"])
         except Exception as er:
             return LOGS.exception(er)
         TEXT = MSG.text
