@@ -10,14 +10,14 @@ from ze.helper import inline_mention, fetch, create_quotly, download_yt, get_yt_
 from ze import *
 
 
-NAME = OWNER_NAME = ZedB.get_key("NAME")
-LOG_CHAT = ZedB.get_config("LOG_CHAT")
+NAME = OWNER_NAME = zedB.get_key("NAME")
+LOG_CHAT = zedB.get_config("LOG_CHAT")
 DEV_CHAT = [-1002364284880]
 DEVLIST = [6929438980]
 
 
 def inline_pic(get=False):
-    INLINE_PIC = ZedB.get_key("INLINE_PIC")
+    INLINE_PIC = zedB.get_key("INLINE_PIC")
     if (INLINE_PIC is None) or get:
         return "https://telegra.ph/file/41a777f089288f7ad2571.jpg"
     elif INLINE_PIC:
