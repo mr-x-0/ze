@@ -50,7 +50,7 @@ async def notify():
         BTTS = Button.inline("• أضغط هنا للبدأ •", "initft_2")
         zedB.set_key("FIRST_DEPLOY", True)
     else:
-        MSG = f"🌟 تنصيب سورس زد إي أكتمل بنجاح! ☑️\n\n👤 **حساب المالك:** {inline_mention(Zeubot.me)}\n🤖 **البوت المساعد:** @{tgbot.me.username}\n\n📩 نرحب بك في مجموعتنا! إذا كان لديك أي استفسارات فلا تتردد في السؤال!\n💬 **مجموعة المساعدة:** @ZESUPORT"
+        MSG = f"🌟 تنصيب سورس زد إي أكتمل بنجاح! ☑️\n\n👤 **حساب المالك:** {inline_mention(zeubot.me)}\n🤖 **البوت المساعد:** @{tgbot.me.username}\n\n📩 نرحب بك في مجموعتنا! إذا كان لديك أي استفسارات فلا تتردد في السؤال!\n💬 **مجموعة المساعدة:** @ZESUPORT"
         BTTS, PHOTO = None, None
 
         if prev_spam := zedB.get_key("LAST_UPDATE_LOG_SPAM"):
@@ -71,7 +71,7 @@ async def notify():
 
 
 async def group_ub():
-    from .. import tgbot, zedB, Zeubot
+    from .. import tgbot, zedB, zeubot
 
     log_chat = zedB.get_key("LOG_CHAT")
     new_channel = None
