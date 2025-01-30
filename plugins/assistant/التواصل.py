@@ -10,17 +10,17 @@ from telethon.tl.types import Channel, Chat
 from telethon.utils import get_display_name
 from . import inline_mention
 
-from database import ZedB
+from database import zedB
 from database.core.settings import KeySettings
 
 OWNER_ID = zeubot.me.id
-FSUB = ZedB.get_key("PMBOT_FSUB")
+FSUB = zedB.get_key("PMBOT_FSUB")
 CACHE = {}
 blm = KeySettings("BLACKLIST_CHATS", cast=list)
 
 
 def get_who(msg_id):
-    val = ZedB.get_key("BOTCHAT") or {}
+    val = zedB.get_key("BOTCHAT") or {}
     return val.get(msg_id)
 
 
@@ -66,9 +66,9 @@ async def on_new_msg(event):
     xx = await event.forward_to(OWNER_ID)
     if event.fwd_from:
         await xx.reply(f"**۞ توجيه من المستخدم** {inline_mention(event.sender)} [`{event.sender_id}`]")
-    val = ZedB.get_key("BOTCHAT") or {}
+    val = zedB.get_key("BOTCHAT") or {}
     val[xx.id] = who
-    ZedB.set_key("BOTCHAT", val)
+    zedB.set_key("BOTCHAT", val)
 
 
 

@@ -8,7 +8,7 @@ from telethon.utils import get_display_name
 from ze import LOGS, zeubot, HNDLR
 from ze.decorators import fullsudos, owner_and_sudos 
 from ze.config import version
-from database import ZedB
+from database import zedB
 from database.core.settings import KeySettings
 
 from . import *
@@ -20,7 +20,7 @@ async def get_stored_file(event, hash):
     if not msg_id:
         return
     try:
-        msg = await tgbot.get_messages(ZedB.get_config("LOG_CHAT"), ids=msg_id)
+        msg = await tgbot.get_messages(zedB.get_config("LOG_CHAT"), ids=msg_id)
     except Exception as er:
         LOGS.warning(f"حدث خطأ اثناء تخزين الملف: {er}")
         return
@@ -32,7 +32,7 @@ async def get_stored_file(event, hash):
 
 
 def get_start_message():
-    Owner_info_msg = ZedB.get_key("BOT_INFO_START")
+    Owner_info_msg = zedB.get_key("BOT_INFO_START")
     _custom = True
     if Owner_info_msg is None:
         _custom = False
@@ -40,7 +40,7 @@ def get_start_message():
 **۞ مالك الحساب**: {zeubot.full_name}
 **۞ ايدي المالك**: `{zeubot.uid}`
 
-**۞ نظام التواصل**: {ZedB.get_key("PMBOT")}
+**۞ نظام التواصل**: {zedB.get_key("PMBOT")}
 
 **۞ سورس زد إي: [v{version}] ، @SOURCEZE**
 """
@@ -88,7 +88,7 @@ async def Ze_handler(event):
     KeySet = KeySettings("BOT_USERS", cast=list)
     if not KeySet.contains(event.sender_id) and event.sender_id not in owner_and_sudos():
         KeySet.add(event.sender_id)
-        mod_Ze = ZedB.get_key("OFF_START_LOG")
+        mod_Ze = zedB.get_key("OFF_START_LOG")
         if not mod_Ze or mod_Ze != True:
             msg = f"**۞ مستخدم جديد:** {inline_mention(event.sender)} `[{event.sender_id}]`\n۞ شَغل  [البوت المساعد](@{tgbot.me.username})."
             buttons = [[Button.inline("معلومات المستخدم", "toaslZe")]]
@@ -99,7 +99,7 @@ async def Ze_handler(event):
                     )
                 )
             await event.client.send_message(
-                ZedB.get_config("LOG_CHAT"), msg, buttons=buttons
+                zedB.get_config("LOG_CHAT"), msg, buttons=buttons
             )
     if event.sender_id not in fullsudos():
         ok = ""
@@ -107,15 +107,15 @@ async def Ze_handler(event):
         mention = inline_mention(event.sender)
         if args and args != "set":
             await get_stored_file(event, args)
-        if _starts := ZedB.get_key("STARTMSG"):
+        if _starts := zedB.get_key("STARTMSG"):
             msg = _starts
         else:
-            if ZedB.get_key("PMBOT"):
+            if zedB.get_key("PMBOT"):
                 ok = "۞ يمكنك التواصل مع صاحب البوت من هنا أرسل رسالتك وأنتظر الرد ..."
             msg = f"مـرحبا بـك {mention} ، هذا هو البوت المساعد لـ {me}\n\n{ok}"
         await event.reply(
             msg.format(me=me, mention=mention),
-            file=ZedB.get_key("STARTMEDIA"),
+            file=zedB.get_key("STARTMEDIA"),
             buttons=(
                 Button.inline("معلومات", data="ownerinfo")
                 if (get_start_message()[0])
@@ -162,7 +162,7 @@ async def Ze(event):
 
 @callback("stat", owner=True)
 async def bot_stat(event):
-    ok = len(ZedB.get_key("BOT_USERS") or [])
+    ok = len(zedB.get_key("BOT_USERS") or [])
     msg = """حـالة البـوت المساعـد من جـمثون
 عدد المستخدمين:  {}""".format(
         ok,
@@ -249,7 +249,7 @@ async def timezone_mod(event):
             )
         try:
             timezone(themssg)
-            ZedB.set_key(var, themssg)
+            zedB.set_key(var, themssg)
             await conv.send_message(
                 f"**⌔∮ {name} تم تغييرها الى {themssg}**\n",
                 buttons=get_back_button("mainmenu"),

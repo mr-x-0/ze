@@ -7,7 +7,7 @@ from os import remove
 import requests
 from telegraph import upload_file as upl
 from telethon import Button, events
-from database import ZedB
+from database import zedB
 
 from telethon.tl.types import MessageMediaWebPage
 from telethon.utils import get_peer_id
@@ -27,7 +27,7 @@ def text_to_url(event):
 
 async def setit(event, name, value):
     try:
-        ZedB.set_key(name, value)
+        zedB.set_key(name, value)
     except BaseException as er:
         LOGS.exception(er)
         return await event.edit("**⌔∮ لقد حدث خطأ ما أثناء تغيير قيمة المتغير**")
@@ -279,7 +279,7 @@ async def bioacount(e):
 async def pmset(event):
     BT = (
         [Button.inline("تعطيل وضع المتحكم", data="ofsudo")]
-        if ZedB.get_key("SUDO")
+        if zedB.get_key("SUDO")
         else [Button.inline("تشغيل وضع المتحكم", data="onsudo")]
     )
 
@@ -362,7 +362,7 @@ async def media(event):
 @callback("delmed", owner=True)
 async def dell(event):
     try:
-        ZedB.del_key("ALIVE_PIC")
+        zedB.del_key("ALIVE_PIC")
         return await event.edit("⌔∮ تم بنجاح ازالة صورة الفحص", buttons=get_back_button("cbs_alabs_vcstm"))
     except BaseException as er:
         LOGS.exception(er)
@@ -437,7 +437,7 @@ async def name(event):
 @callback(re.compile(b"wrns_(.*)"), owner=True)
 async def set_wrns(event):
     value = int(event.data_match.group(1).decode("UTF-8"))
-    if dn := ZedB.set_key("PMWARNS", value):
+    if dn := zedB.set_key("PMWARNS", value):
         await event.edit(
             f"⌔∮ تم تغيير عدد التحذيرات الى {value}.\n۞ المستخدمين الجدد سيتم تحذيرهم {value} مرات قبل أن بتم حظرهم",
             buttons=get_back_button("cbs_pmcstm"),
@@ -497,7 +497,7 @@ async def media(event):
 @callback("delpmmed", owner=True)
 async def dell(event):
     try:
-        ZedB.del_key("PMPIC")
+        zedB.del_key("PMPIC")
         return await event.edit("⌔∮ تم بنجاح حذف صورة/فيديو حماية الخاص", buttons=get_back_button("cbs_pmcstm"))
     except BaseException as er:
         LOGS.exception(er)
@@ -519,7 +519,7 @@ async def apon(event):
 @callback("apof", owner=True)
 async def apof(event):
     try:
-        ZedB.set_key("AUTOAPPROVE", "False")
+        zedB.set_key("AUTOAPPROVE", "False")
         return await event.edit(
             f"⌔∮ تم تعطيل السماح التلقائي يجب عليك الان ارسال `{HNDLR}سماح`  للسماح للمستخدم",
             buttons=[[Button.inline("رجـوع", data="cbs_apauto")]],
@@ -563,7 +563,7 @@ async def hhh(e):
             return await conv.send_message(
                 "⌔∮ تم الغاء العملية", buttons=get_back_button("cbs_chatbot")
             )
-        ZedB.set_key("STARTMEDIA", msg.file.id)
+        zedB.set_key("STARTMEDIA", msg.file.id)
         await conv.send_message("⌔∮ تم بنجاح وضع الميديا لرسالة ترحيب البوت", buttons=get_back_button("cbs_chatbot"))
 
 
@@ -578,7 +578,7 @@ async def hhh(e):
             return await conv.send_message(
                 "⌔∮ تم الغاء العملية", buttons=get_back_button("cbs_chatbot")
             )
-        ZedB.set_key("BOT_INFO_START", msg.text)
+        zedB.set_key("BOT_INFO_START", msg.text)
         await conv.send_message("Done!", buttons=get_back_button("cbs_chatbot"))
 
 
@@ -600,7 +600,7 @@ async def heheh(event):
         if not msg.text or msg.text.startswith("/"):
             timyork = "تم الغاء العملية بنجاح"
             if msg.text == "تعطيل":
-                ZedB.del_key("PMBOT_FSUB")
+                zedB.del_key("PMBOT_FSUB")
                 timyork = f"تم بنجاح الغاؤ الاشتراك الاجباري من البوت المساعد الان ارسل `{HNDLR}اعادة تشغيل`"
             return await conv.send_message(
                 "تم الغاء العملية", buttons=get_back_button("cbs_chatbot")
@@ -615,7 +615,7 @@ async def heheh(event):
                 err += f"**{chat}** : {er}\n"
         if err:
             return await conv.send_message(err)
-        ZedB.set_key("PMBOT_FSUB", str(Ll))
+        zedB.set_key("PMBOT_FSUB", str(Ll))
         await conv.send_message(
             f"تم بنجاح اضافة القناة الى الاشتراك الاجباري في البوت المساعد \nالان ارسل `{HNDLR}اعادة تشغيل`.", buttons=get_back_button("cbs_chatbot")
         )
