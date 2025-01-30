@@ -10,8 +10,8 @@ try:
 except ImportError:
     from ytdl import YoutubeDL
 
-from zethon import LOGS, zedB 
-from zethon.core.helper import humanbytes
+from ze import LOGS, zedB 
+from ze.core.helper import humanbytes
 from .functions import set_attributes, download_file, run_async
 
 
