@@ -1,16 +1,16 @@
 from contextlib import suppress
-from database import ZedB
+from database import zedB
 from .manager import eod, eor
 
 
 StatsHolder = {}
 
 def should_allow_sudos():
-    return ZedB.get_key("SUDO")
+    return zedB.get_key("SUDO")
 
 
 def get_sudos() -> list:
-    return ZedB.get_key("SUDOS") or []
+    return zedB.get_key("SUDOS") or []
 
 
 def is_sudo(userid):
@@ -19,8 +19,8 @@ def is_sudo(userid):
 
 def owner_and_sudos(only_full=False):
     if only_full:
-        return [ZedB.get_config("OWNER_ID"), *fullsudos()]
-    return [ZedB.get_config("OWNER_ID"), *get_sudos()]
+        return [zedB.get_config("OWNER_ID"), *fullsudos()]
+    return [zedB.get_config("OWNER_ID"), *get_sudos()]
 
 
 def _parse(key):
@@ -31,9 +31,9 @@ def _parse(key):
 
 def fullsudos():
     fullsudos = []
-    if sudos := ZedB.get_key("FULLSUDO"):
+    if sudos := zedB.get_key("FULLSUDO"):
         fullsudos.extend(str(sudos).split())
-    owner = ZedB.get_config("OWNER_ID")
+    owner = zedB.get_config("OWNER_ID")
     if owner and owner not in fullsudos:
         fullsudos.append(owner)
     return list(map(_parse, filter(lambda id: id, fullsudos)))
