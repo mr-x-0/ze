@@ -65,7 +65,7 @@ async def alive_func(e):
         inline = True
     OWNER_NAME = zeubot.me.first_name
 
-    pic = zedB.get_key("ALIVE_PIC") or "https://files.catbox.moe/bk64x4.jpg"
+    pic = zedB.get_key("ALIVE_PIC") or "https://telegra.ph/file/41a777f089288f7ad2571.jpg"
     if isinstance(pic, list):
         pic = choice(pic)
     uptime = time_formatter((time.time() - start_time) * 1000)
@@ -126,7 +126,7 @@ async def alive_func(e):
 
 @in_pattern("alive", owner=True)
 async def inline_alive(e):
-    pic = zedB.get_key("ALIVE_PIC") or "https://files.catbox.moe/mkpve6.webp"
+    pic = zedB.get_key("ALIVE_PIC") or "https://telegra.ph/file/41a777f089288f7ad2571.jpg"
     if isinstance(pic, list):
         pic = choice(pic)
     uptime = time_formatter((time.time() - start_time) * 1000)
